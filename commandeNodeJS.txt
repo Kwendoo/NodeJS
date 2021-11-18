@@ -1,0 +1,6 @@
+installer wikiquote NodeJS :
+	npm install wikiquote
+
+lancer une app NodeJS :
+	dans le terminal se placer dans le dossier voulu et taper :
+	node nomApp.js
