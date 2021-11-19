@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const { loadJsonData, saveJsonData } = require("./tools-box");
 
 const URL_BASE_POKEAPI = 'https://pokeapi.co/api/v2/pokemon/__PokeId__';
 const URL_POKEAPI = 'https://pokeapi.co/api/v2';
@@ -6,12 +7,14 @@ const URL_POKEAPI = 'https://pokeapi.co/api/v2';
 class PokeManager {
 
     constructor(){
-        this.pokemon = new Map();
+        this.loadedPokemon = new Map();
+        this.favoritesPokemon = [];
+        this.fileName = 'favorites-pokemon';
     };
 
     loadPokemon = (idPokemon) => {
 
-        const pokemonAllReadyLoad = this.pokemon.get(idPokemon);
+        const pokemonAllReadyLoad = this.loadedPokemon.get(idPokemon);
 
         if (pokemonAllReadyLoad) {
             return Promise.resolve(pokemonAllReadyLoad);
@@ -35,7 +38,7 @@ class PokeManager {
                 }
             };
 
-            this.pokemon.set(pokemon.id , pokemon);
+            this.loadedPokemon.set(pokemon.id , pokemon);
 
             return pokemon;
         })
@@ -43,11 +46,18 @@ class PokeManager {
             console.log(error);
             throw new Error(error)
         })
-
     };
 
-    addPokemonToFavorite = (idPokemon) => {
+    addPokemonToFavorite = async (idPokemon) => {
         
+        const pokemonTarget = await this.loadPokemon(idPokemon);
+
+        let pokemonFavorites = await loadJsonData(this.fileName);
+        pokemonFavorites = [...pokemonFavorites, pokemonTarget];
+
+        await saveJsonData(this.fileName, pokemonFavorites);
+        console.log('La liste des pokemon a été mise à jour');
+
     };
 
     removePokemonToFavorite = (idPokemon) => {
@@ -55,9 +65,14 @@ class PokeManager {
     };
 
     viewPokemonFavorite = () => {
-        
-    };
 
+        loadJsonData(this.fileName).then(pokemons => {
+            console.log('Voici les pokemon mis en favoris');
+            pokemons.forEach((pokemon, index) =>{
+                console.log(` - ${pokemon.name} (${pokemon.id})`);
+            })
+        });
+    };
 };
 
 module.exports = PokeManager;
