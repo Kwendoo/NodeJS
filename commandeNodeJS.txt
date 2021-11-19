@@ -4,3 +4,7 @@ installer wikiquote NodeJS :
 lancer une app NodeJS :
 	dans le terminal se placer dans le dossier voulu et taper :
 	node nomApp.js
+
+Créer un projet Node :
+	dans le terminal à la racine deu dossier du nouveau projet :
+	npm init

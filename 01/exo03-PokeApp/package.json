@@ -1,0 +1,18 @@
+{
+  "name": "exo03-pokeapp",
+  "version": "1.0.0",
+  "description": "Correction exo 03",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "TfTIC"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
