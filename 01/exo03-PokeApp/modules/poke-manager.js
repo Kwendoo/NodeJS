@@ -50,18 +50,34 @@ class PokeManager {
 
     addPokemonToFavorite = async (idPokemon) => {
         
-        const pokemonTarget = await this.loadPokemon(idPokemon);
-
         let pokemonFavorites = await loadJsonData(this.fileName);
+        
+        if (pokemonFavorites.find(p => p.id === idPokemon) !== undefined){
+            console.log('Le pokemon est déjà présent dans les favoris');
+            return;
+        }
+        
+        const pokemonTarget = await this.loadPokemon(idPokemon);    
         pokemonFavorites = [...pokemonFavorites, pokemonTarget];
-
         await saveJsonData(this.fileName, pokemonFavorites);
         console.log('La liste des pokemon a été mise à jour');
 
     };
 
-    removePokemonToFavorite = (idPokemon) => {
+    removePokemonToFavorite = async (idPokemon) => {
         
+        let pokemonFavorites = await loadJsonData(this.fileName);
+
+        const pokemonIndex = pokemonFavorites.findIndex(p => p.id === idPokemon)
+        if ( pokemonIndex === -1){
+            console.log('Le pokemon ne fait pas partie de la liste des favoris');
+            return;
+        }
+
+        pokemonFavorites.splice(pokemonIndex, 1);
+
+        await saveJsonData(this.fileName, pokemonFavorites);
+        console.log('Le pokemon a été supprimé de la liste des favoris');
     };
 
     viewPokemonFavorite = () => {

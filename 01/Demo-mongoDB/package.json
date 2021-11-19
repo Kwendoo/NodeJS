@@ -1,0 +1,25 @@
+{
+  "name": "demo-mongodb",
+  "version": "1.0.0",
+  "description": "demo MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "prod": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tftic",
+    "NodeJS",
+    "MongoDB"
+  ],
+  "author": "Antoine",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

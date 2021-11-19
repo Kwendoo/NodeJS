@@ -24,6 +24,7 @@ const pokeManager = new PokeManager();
 setImmediate( async() => {
     console.log('Rendu des favoris');
     await pokeManager.viewPokemonFavorite();
-    await pokeManager.addPokemonToFavorite(42);
+    await pokeManager.addPokemonToFavorite(100);
+    await pokeManager.removePokemonToFavorite(725);
     await pokeManager.viewPokemonFavorite();
 });
